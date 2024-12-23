@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/flowui/menu">
+
+    <menu id="application" title="msg://com.company.petclinic/menu.application.title" opened="true">
+        <item view="User.list" title="msg://com.company.petclinic.view.user/UserListView.title"/>
+        <item view="PetType.list" title="msg://com.company.petclinic.view.pettype/petTypeListView.title"/>
+        <item view="Speciality.list" title="msg://com.company.petclinic.view.speciality/specialityListView.title"/>
+        <item view="Vet.list" title="msg://com.company.petclinic.view.vet/vetListView.title"/>
+        <item view="Owner.list" title="msg://com.company.petclinic.view.owner/ownerListView.title"/>
+        <item view="Visit.list" title="msg://com.company.petclinic.view.visit/visitListView.title"/>
+        <item view="Pet.list" title="msg://com.company.petclinic.view.pet/petListView.title"/>
+        <item view="Myvisits" title="msg://com.company.petclinic.view.myvisits/myvisits.title"/>
+    </menu>
+
+</menu-config>

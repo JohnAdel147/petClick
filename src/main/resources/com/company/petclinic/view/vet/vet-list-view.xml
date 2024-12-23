@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://vetListView.title"
+      focusComponent="vetsDataGrid">
+    <data>
+        <collection id="vetsDc"
+                    class="com.company.petclinic.entity.Vet">
+            <fetchPlan extends="_base">
+                <property name="specialities" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="vetsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Vet e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="vetsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="vetsDataGrid.create"/>
+            <button id="editBtn" action="vetsDataGrid.edit"/>
+            <button id="removeBtn" action="vetsDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="vetsDl"/>
+        </hbox>
+        <dataGrid id="vetsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="vetsDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="firstName"/>
+                <column property="lastName"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

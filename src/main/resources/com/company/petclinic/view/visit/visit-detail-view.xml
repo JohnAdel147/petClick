@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://visitDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="visitDc"
+                  class="com.company.petclinic.entity.Visit">
+            <fetchPlan extends="_base">
+                <property name="assignedNurse" fetchPlan="_instance_name"/>
+                <property name="pet" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="visitDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="visitDc">
+            <entityPicker property="pet">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <dateTimePicker id="visitDateField" property="visitDate"/>
+            <select id="typeField" property="type">
+            </select>
+            <textField id="descriptionField" property="description"/>
+            <entityPicker property="assignedNurse">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <select property="status">
+            </select>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

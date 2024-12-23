@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://petListView.title"
+      focusComponent="petsDataGrid">
+    <data>
+        <collection id="petsDc"
+                    class="com.company.petclinic.entity.Pet">
+            <fetchPlan extends="_base">
+                <property name="pType" fetchPlan="_base"/>
+                <property name="owner" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader id="petsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Pet e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="petsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="petsDataGrid.create"/>
+            <button id="editBtn" action="petsDataGrid.edit"/>
+            <button id="removeBtn" action="petsDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="petsDl"/>
+        </hbox>
+        <dataGrid id="petsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="petsDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="name"/>
+                <column property="pType"/>
+                <column property="owner"/>
+                <column property="birthday"/>
+                <column property="identificationNumber"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

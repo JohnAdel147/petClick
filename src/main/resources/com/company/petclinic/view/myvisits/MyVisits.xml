@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://myvisits.title">
+    <data>
+        <collection id="visitsDc"
+                    class="com.company.petclinic.entity.Visit">
+            <fetchPlan extends="_base">
+                <property name="pet" fetchPlan="_instance_name">
+                    <property name="owner" fetchPlan="_base"/>
+                    <property name="identificationNumber"/>
+                </property>
+                <property name="assignedNurse" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="visitsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Visit e
+                    where e.assignedNurse.id = :current_user_id]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+
+    <layout>
+        <hbox>
+            <button id="startBtn" text="Start"/>
+            <button id="finishBtn" text="Finish"/>
+        </hbox>
+        <dataGrid id="visitsDataGrid" dataContainer="visitsDc" minWidth="100px" width="100%">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="visitDate"/>
+                <column property="pet"/>
+                <column property="type"/>
+                <column property="description"/>
+                <column property="status"/>
+                <column property="pet.name"/>
+                <column property="pet.identificationNumber"/>
+                <column property="pet.owner.name"/>
+                <column property="assignedNurse"/>
+            </columns>
+        </dataGrid>
+        <hbox>
+            <button id="saveButton" text="Save" themeNames="primary"/>
+            <button id="discardButton" text="Discard"/>
+        </hbox>
+    </layout>
+</view>
